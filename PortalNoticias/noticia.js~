@@ -4,18 +4,16 @@ var server = http.createServer( function(req, res){  //Este método espera um ar
 	
 	var categoria = req.url // request com atributo "url", recuperamos "localhost/3000/####" ### pra frente 
 	
-	if(categoria == '/tecnologia'){
+	if(categoria == 'tecnologia'){
 		
 		res.end("<html><body>Noticías de Tecnologia</body></html>");
-	} else if (categoria == '/moda') {
-		res.end("<html><body>Noticías de moda</body></html>");
-				
-	} else if (categoria == '/beleza') {
-		res.end("<html><body>Noticías de beleza</body></html>");
-				
+	} else if (categoria == 'moda') {
+		res.end("<html><body>Noticías de moda</body></html>");		
+	} else if (categoria == 'beleza') {
+		res.end("<html><body>Noticías de beleza</body></html>");		
 	} else {
+	
 		res.end("<html><body>Portal de noticias</body></html>");
-		
 	}
 });
 
