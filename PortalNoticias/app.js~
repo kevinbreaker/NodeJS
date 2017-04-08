@@ -15,7 +15,7 @@ aplicacao.get('/formulario_inclusao_noticia', function (req,res) {
 });
 
 aplicacao.get('/noticias', function (req,res) {
-	res.render("noticias/noticias");
+	res.send("noticias/noticias");
 
 });
 aplicacao.listen(3000, function () {
