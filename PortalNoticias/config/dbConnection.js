@@ -1,6 +1,8 @@
 var mysql = require('mysql'); // a variavel mysql, vai importar/require, o módulo mysql.
 			//	(que esta dentro do node_modules) para conexão com banco de dados mysql.
-module.exports = function () {
+
+var connMySQL = function () { // por causa do consign, feita esta função para evitar que conecte com o banco toda hora.
+
 	return  mysql.createConnection({ //variavel connection, recebe uma função do modulo mysql( createConnection);
 													// para fazer conexão com o banco, obs: os parametros dentro dele, são em estrutura Json.
 													
@@ -10,4 +12,10 @@ module.exports = function () {
 		database : 'portal_noticias' 
 																		
 	 	}); //feita a conexão(com info do BD)
+
+}
+module.exports = function () {
+	console.log('O autoload carregou o módulo de conexão com o BD');
+	return connMySQL; // evita que o autoload do consign execute direto, pois a conexão do bd esta dentro de uma variavel.
+	
 }
