@@ -1,0 +1,29 @@
+CREATE DATABASE portal_noticias;
+
+-- Essa é uma linha comentada. 
+-- crie um banco(não existente é claro), apos isso execute o USE com o nome do banco. 
+
+USE portal_noticias;
+
+-- Agora sim é possivel criar as tabelas.
+
+CREATE TABLE noticia(
+
+id_noticia INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+titulo VARCHAR(100),
+noticia TEXT,
+data_criacao timestamp default current_timestamp
+);
+
+-- siga todos os comandos sem altera-los, para evitar bugs/erros.
+-- current_timesstamp, no momento que incluir um arquivo irá pegar a data e hora automaticamente.
+-- agora vamos inserir algo no banco de dados.
+
+INSERT INTO noticias(titulo, noticia) VALUES ('titulo da noticia', 'conteudo da noticia');
+
+--ja inseriu os dados com sucesso!
+
+SELECT * FROM noticias;
+
+-- irá mostrar os dados contido nesta tabela, caso não você errou em algo..
+
