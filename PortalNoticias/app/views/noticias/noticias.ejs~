@@ -17,7 +17,7 @@
 		
 		<% for (var i=0; i< noticias.length; i++){  %> 	<!--  <% %> para inserir codigicação javascript -->
 			<tr>
-				<td><%= noticias[i].id_noticia %></td> <!-- noticia[for].nome que ta no banco -->
+				<td><%= noticias[i].id_noticia %></td>
 				<td><%= noticias[i].titulo%></td>
 				<td><%= noticias[i].noticia%></td>			
 			</tr>	
