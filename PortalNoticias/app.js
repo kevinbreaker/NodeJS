@@ -1,24 +1,15 @@
-var express = require('express'); // require importa um módulo ou biblioteca para incorpora outros arquivos ou páginas ao script.Neste caso importando o Express.
-var aplicacao = express();
+var aplicacao = require('./config/server'); // "./" Por esta no mesmo nivel da navegação de diretorio
 
-aplicacao.set('view engine', 'ejs'); // setou que a geração de views será com EJS
+var rotaNoticias = require('./app/routes/noticias');
+rotaNoticias(aplicacao); // Quando se exporta uma função, não se excuta ela necessariamente, então é necessario executar, no meu caso colocando o paramentro aplicacao. 
+
+var rotaHome = require('./app/routes/home')(aplicacao); // economizando linhas de codigos, executando uma função"()" e passando o meu parametro "aplicacao"
 
 
-aplicacao.get('/', function (req,res) {
-	res.render("home/index");
+var rotaFormularioAddNoticia = require('./app/routes/formulario_inclusao_noticia')(aplicacao); // outra forma de executar a função, no padrão **commonJS**
 
-});
 
-aplicacao.get('/formulario_inclusao_noticia', function (req,res) {
-	res.render("admin/form_add_noticia");
-
-});
-
-aplicacao.get('/noticias', function (req,res) {
-	res.render("noticias/noticias");
-
-});
-aplicacao.listen(3000, function () {
+aplicacao.listen(3000, function () { // escutando na porta 3000, e imprimindo no shell que esta rodando.
 	console.log("Servidor rONdando");
 
 });

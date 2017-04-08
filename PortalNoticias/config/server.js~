@@ -1,0 +1,6 @@
+var express = require('express'); // require importa um módulo ou biblioteca para incorpora outros arquivos ou páginas ao script.Neste caso importando o Express.
+var aplicacao = express();
+
+aplicacao.set('view engine', 'ejs'); // setou que a geração de views será com EJS
+
+module.exports = aplicacao;
