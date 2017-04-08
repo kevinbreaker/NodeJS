@@ -26,4 +26,5 @@ INSERT INTO noticias(titulo, noticia) VALUES ('titulo da noticia', 'conteudo da 
 SELECT * FROM noticias;
 
 -- irá mostrar os dados contido nesta tabela, caso não você errou em algo..
-
+INSERT INTO noticias(titulo, noticia) VALUES ('outra noticia','outro conteudo');
+________________________________
