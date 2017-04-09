@@ -13,11 +13,13 @@ module.exports.noticias = function(aplicacao,req,res){
 module.exports.noticia = function(aplicacao,req,res){
 
 	var connection = aplicacao.config.dbConnection(); // pode acessar os modulos dessa forma, por causa do consign que carregou os modulos pra ca.	
-								 							// connection fica aqui, pra ser executada apenas quando esta rota for acessada, assim executando a função.
+	var noticiasModel = new aplicacao.app.models.NoticiasDAO(connection);			// connection fica aqui, pra ser executada apenas quando esta rota for acessada, assim executando a função.
+	
+	var id_noticia= req.query; // pega os id da noticia da pagina
+	
 		
-	var noticiasModel = new aplicacao.app.models.NoticiasDAO(connection);
 		
-	noticiasModel.getNoticia(function(erro ,result) {		
+	noticiasModel.getNoticia(id_noticia, function(erro ,result) {		
 	res.render("noticias/noticia", {noticia : result});	
 	});
 

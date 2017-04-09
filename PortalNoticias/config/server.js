@@ -11,6 +11,9 @@ aplicacao.use(bodyParser.urlencoded({extended: true})); // modulo que atua na re
 									// por ser middleware, precisa ficar antes dos includes dos modulos
 									//urlencoded = entender como tratar url de formulario. extended : permite atraves de json implemetação de url codificada, em forma de url. 
 aplicacao.use(expressValidator());  // outro middleware. faz validações, caso não valido, popula o body com erro.
+aplicacao.use(express.static('./app/public')); // Acessa tudo que ta dentro do *PUBLIB/* sem necessidade de informar todo o caminho, como estivesse na raiz.
+													// Assim as views, não precisam da informação de todo o percuso, apenas da raiz( que é oque o express.static() esta fazendo.)  
+
 
 consign()		 //com include informa o diretorio que quer incluir, para que ele inclua atuomaticamente todos os requires. para disponibilizar mais faiclamnete
 		.include('app/routes') // consign reconhece todos arquivos da pasta routes/, scaneia ele,pega todos os modulos e inclui dentro do servidor.
