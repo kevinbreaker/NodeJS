@@ -1,12 +1,12 @@
-
+// PRIMEIRO ARQUIVO FEITO, NÃO UTILIZAR COM O PROJETO.. APENAS UM EXEMPLO SEM MODULOS, COMO FICA MAIS CHATO E EXTENSO.
 
 var server = http.createServer( function(req, res){  //Este método espera um argumento,que no meu caso será req(requisição) e res(resposta), assim podendo trabalhar dentro do servidor.
 	
 	var categoria = req.url // request com atributo "url", recuperamos "localhost/3000/####" ### pra frente 
 	
-	if(categoria == '/tecnologia'){
+	if(categoria == '/tecnologia'){ // localhost:3000/tecnologia
 		
-		res.end("<html><body>Noticías de Tecnologia</body></html>");
+		res.end("<html><body>Noticías de Tecnologia</body></html>"); // isso mesmo, printa um " noticias de tecnologia" na pagina.
 	} else if (categoria == '/moda') {
 		res.end("<html><body>Noticías de moda</body></html>");
 				
