@@ -8,7 +8,12 @@ module.exports = function () {
 		connection.query('select * from noticias where id_noticia = 2', callback); 
 		
 	}
-			
+	
+	this.salvarNoticia = function(noticia, connection, callback){
+		connection.query('INSERT INTO noticias set ?', noticia, callback) //passa o Json como paramentro pro query, pq o mySQL suporta o insert com informação set
+	}									// o modulo mysql tem inteligencia pra pegar o Json e transformar em string e substituir aonde tiver "?"
+										// fundamental o Json possuir como rótulo das variáveis o mesmo nome que as colunas da tabela.
+													
 	return this;
 
 }
