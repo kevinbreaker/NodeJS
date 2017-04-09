@@ -8,5 +8,7 @@ aplicacao.set('views', './app/views'); // apontando caminho das views para rotas
 consign()		 //com include informa o diretorio que quer incluir, para que ele inclua atuomaticamente todos os requires. para disponibilizar mais faiclamnete
 		.include('app/routes') // consign reconhece todos arquivos da pasta routes/, scaneia ele,pega todos os modulos e inclui dentro do servidor.
 		.then('config/dbConnection.js')	 // then(), apos o include pode colocar outros modulos que serão incluidos dentro da aplicação
+		.then('app/models') // carrega o autoload de todos os módulos do models.
 		.into(aplicacao);			// quando o consign carrega o modulo, ele executa o que o modulo exporta se o modulo exporta função, ele executa ela #perigo pra loop.
+
 module.exports = aplicacao;
