@@ -6,18 +6,19 @@ module.exports = function (aplicacao) {
 	//var connection = dbConnection(); por causa do consign se tornou descenessario.
 	
 	aplicacao.get('/noticias', function (req,res) {
+		 // ***** nova refatoração, agora no controllers *****
 		
-		var connection = aplicacao.config.dbConnection(); // pode acessar os modulos dessa forma, por causa do consign que carregou os modulos pra ca.	
-						 							// connection fica aqui, pra ser executada apenas quando esta rota for acessada, assim executando a função.
-		var noticiasModel = new aplicacao.app.models.NoticiasDAO(connection);	// new por causa da classe ... vai abrir uma instancia deste módulo.		 	
-						 	
-		noticiasModel.getNoticias(function(erro, result){   // callback agora vem pra ca.
-			res.render("noticias/noticias",{noticias : result});	//response.render(envia pra view o valor que é o result).	// função callback,oque vai ser feito apos a consulta ser realizada. 
-		});		
+		aplicacao.app.controllers.noticias.noticias(aplicacao, req,res);//Executando a função do Codigo no controllers
+		
 		//#### não há mais necessidade, por causa do model.																	 							
 		//	connection.query('select * from noticias' ,function (erro, result){    // connection.query(<sql>, <func callback). sql é a consulta em si.
 		//	res.render("noticias/noticias",{noticias : result});	//response.render(envia pra view o valor que é o result).	// função callback,oque vai ser feito apos a consulta ser realizada. 
 		// ###############	 																															//dentro do node funcionam muito com callback		  						
 			
+		aplicacao.get('/noticia', function (req,res) {
+		
+		aplicacao.app.controllers.noticias.noticia(aplicacao,req,res); //Executando a função dentro do controllers		
+		
+		});
 	});
 }

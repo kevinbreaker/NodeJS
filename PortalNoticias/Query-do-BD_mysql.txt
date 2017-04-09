@@ -27,4 +27,12 @@ SELECT * FROM noticias;
 
 -- irá mostrar os dados contido nesta tabela, caso não você errou em algo..
 INSERT INTO noticias(titulo, noticia) VALUES ('outra noticia','outro conteudo');
-________________________________
+_____________________##### Depois do express-validator ####___________
+
+ALTER TABLE noticias ADD COLUMN resumo VARCHAR(100);
+ALTER TABLE noticias ADD COLUMN autor VARCHAR(40);
+ALTER TABLE noticias ADD COLUMN data_noticia DATE;
+
+-- ^ Incluiu novas colunas na tabela noticia
+-- verifique se foi incluido mesmo, com o comando abaixo.
+SELECT * FROM noticias; 
