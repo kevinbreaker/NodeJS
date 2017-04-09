@@ -10,9 +10,9 @@ module.exports = function (aplicacao) {
 		var connection = aplicacao.config.dbConnection(); // pode acessar os modulos dessa forma, por causa do consign que carregou os modulos pra ca.	
 								 							// connection fica aqui, pra ser executada apenas quando esta rota for acessada, assim executando a função.
 		
-		var noticiasModel = aplicacao.app.models.noticiasModel;
+		var noticiasModel = new aplicacao.app.models.NoticiasDAO(connection);
 		
-		noticiasModel.getNoticia(connection,function(erro ,result) {		
+		noticiasModel.getNoticia(function(erro ,result) {		
 			res.render("noticias/noticia", {noticia : result});	
 		});
 		/********* INUTILIZOU POR CAUSA DO MODEL *******

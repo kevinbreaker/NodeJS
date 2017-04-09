@@ -15,7 +15,6 @@ var connMySQL = function () { // por causa do consign, feita esta função para 
 
 }
 module.exports = function () {
-	console.log('O autoload carregou o módulo de conexão com o BD');
-	return connMySQL; // evita que o autoload do consign execute direto, pois a conexão do bd esta dentro de uma variavel.
+		return connMySQL; // evita que o autoload do consign execute direto, pois a conexão do bd esta dentro de uma variavel.
 	
 }
