@@ -13,7 +13,7 @@ let expressValidator = require('express-validator');
 let aplicacao = express();
 
 // Setar as variáveis 'view egine' e 'views' do express
-aplicacao.set('view egine','ejs');
+aplicacao.set('view engine','ejs');
 aplicacao.set('views','./app/views');
 
 //####### CONFIGURAR OS MIDDLEWARES ####
