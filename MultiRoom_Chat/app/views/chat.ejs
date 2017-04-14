@@ -143,5 +143,10 @@
 		
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 		
+		<script src="/socket.io/socket.io.js">	</script>	<!-- Possui tudo que é necessario do lado do cliente pra escutar e emitir mesg..recuperar e enviar enventos.) -->
+		<script>
+			let socket = io('http://localhost:8080'); // selecionar a porta e endereço que ta usando.. lado do cliente		
+		</script>		
+		
 	</body>
 </html>
