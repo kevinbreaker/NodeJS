@@ -1,6 +1,6 @@
 module.exports = (aplicacao)=>{
 	
 	aplicacao.get('/',(req,res)=>{
-		res.render('index');
+		aplicacao.app.controllers.index.home(aplicacao, req, res);
 	});
 }
