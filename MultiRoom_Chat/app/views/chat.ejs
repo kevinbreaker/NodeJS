@@ -71,35 +71,11 @@
 		<div class="container">
             <div class="row conversa" id="conversa">
 				<div class="col-md-1"></div>
-				<div class="col-md-10">
-					<div class="dialogo">
-						<h4>Satanás</h4>
-						<p>Fala kevin, blz meu filho?</p>
-					</div>
-					
-					<div class="dialogo">
-						<h4>kevin</h4>
-						<p>Opa pai, tudo certo!</p>
-					</div>
-					
-					<div class="dialogo">
-						<h4>Satanás</h4>
-						<p>Vai capirotar mais hoje?</p>
-					</div>
-					
-					<div class="dialogo">
-						<h4>kevin</h4>
-						<p>Sim, com certeza. Vamos espetar uns otarios!!</p>
-					</div>
-					
-					<div class="dialogo">
-						<h4>Satanás</h4>
-						<p>VAMO QUEIMAR ALMAS KRAI!!!!</p>
-					</div>
-				</div>
-				<div class="col-md-1"></div>
-                
-            </div>
+				<div class="col-md-10" id="dialogos">
+		      </div>
+            <div class="col-md-1"></div>
+            
+			</div>
 			
 			<div class="row participantes" id="participantes" style="display:none">
 				<div class="col-md-1"></div>
@@ -127,16 +103,17 @@
 		<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 			<div class="container">
 				<div class="panel-body campo-mensagem">
-					<form>
+					
 						<div class="col-md-12">
 							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Mensagem">
+								<input type="text" class="form-control" id="mensagem" placeholder="Mensagem">
+								<input type="hidden" value="<%= dadosForm.nickname %>" id="nickname"/>
 								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">></button>
+									<button class="btn btn-default" id="enviarMsg" type="button">></button>
 								</span>
 							</div>
 						</div>
-					</form>
+					
 				</div>
 			</div>
 		</nav>		
@@ -145,7 +122,25 @@
 		
 		<script src="/socket.io/socket.io.js">	</script>	<!-- Possui tudo que é necessario do lado do cliente pra escutar e emitir mesg..recuperar e enviar enventos.) -->
 		<script>
-			let socket = io('http://localhost:8080'); // selecionar a porta e endereço que ta usando.. lado do cliente		
+			let socket = io('http://localhost:8080'); // selecionar a porta e endereço que ta usando.. lado do cliente
+		
+			$('#enviarMsg').click(()=>{
+					
+				socket.emit(
+					'msgParaServidor',
+					{nickname : $('#nickname').val(), mensagem : $('#mensagem').val() }				
+				)		
+			});
+		
+			socket.on('msgParaCliente',(data)=>{ // escutando e esperando o emit() //não precisa ser o nome data, pode ser outro. 
+				let html ='';
+				html += '<div class="dialogo">';
+					html += '<h4>' + data.nickname + '</h4>';
+					html += '<p>' + data.mensagem + '</p>';
+					html += '</div>';
+					
+				$('#dialogos').append(html);
+			});	
 		</script>		
 		
 	</body>

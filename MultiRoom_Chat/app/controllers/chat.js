@@ -12,6 +12,12 @@ module.exports.startChat = (aplicacao, req, res)=>{
 		return; // << Pra nao continuar o codigo caso haja erro
  	}
  	
-	res.render('chat')
+	aplicacao.get('SocIO').emit(
+	'msgParaCliente',
+	{nickname : dadosForm.nickname, mensagem : 'Acabou de entrar no chat'}
+	)
+ 	
+ 	
+	res.render('chat',{dadosForm : dadosForm})
 
 }
