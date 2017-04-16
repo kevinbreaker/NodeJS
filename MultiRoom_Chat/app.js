@@ -21,17 +21,25 @@ io.on('connection',(socket)=>{ //escutando eventos de conexão. on ('nome do eve
 		console.log('Usuario desconectou');
 	});
 	
-	socket.on('msgParaServidor',(data)=>{ // só pra gente, que a mensagem será impressa
-		socket.emit(
+	socket.on('msgParaServidor',(data)=>{ 
+		//##### dialogo ###		
+		socket.emit(		// só pra gente, que a mensagem será impressa
 			'msgParaCliente',
 			{nickname: data.nickname, mensagem: data.mensagem}
 			)
-		})
+		socket.broadcast.emit(	// Para aparecer pra todos os usuários menos para nós.
+			'msgParaCliente',
+			{nickname: data.nickname, mensagem: data.mensagem}
+			)
+			// **** participantes ****
+		if(parseInt(data.apelido_att_cliente) == 0){
+			socket.emit(		
+				'ParticipanteClient',
+				{nickname: data.nickname})
 			
-		socket.broadcast.on('msgParaServidor',(data)=>{ // Para aparecer pra todos os usuários menos para nós.
-		socket.emit(
-			'msgParaCliente',
-			{nickname: data.nickname, mensagem: data.mensagem}
-			)
+			socket.broadcast.emit(	
+				'ParticipanteClient',
+				{nickname: data.nickname})
+		}
 	});
 });

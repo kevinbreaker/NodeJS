@@ -79,21 +79,8 @@
 			
 			<div class="row participantes" id="participantes" style="display:none">
 				<div class="col-md-1"></div>
-				<div class="col-md-10">
-					<span class="participante">
-						<img src="images/ico_usuarioo.png" />
-						Jorge
-					</span>
+				<div class="col-md-10" id="pessoas">
 					
-					<span class="participante">
-						<img src="images/ico_usuarioo.png" />
-						José
-					</span>
-					
-					<span class="participante">
-						<img src="images/ico_usuarioo.png" />
-						Fernando
-					</span>
 				</div>
 				<div class="col-md-1"></div>
                 
@@ -108,6 +95,7 @@
 							<div class="input-group">
 								<input type="text" class="form-control" id="mensagem" placeholder="Mensagem">
 								<input type="hidden" value="<%= dadosForm.nickname %>" id="nickname"/>
+								<input type="hidden" id="apelido_att_cliente" value="0" />
 								<span class="input-group-btn">
 									<button class="btn btn-default" id="enviarMsg" type="button">></button>
 								</span>
@@ -128,18 +116,34 @@
 					
 				socket.emit(
 					'msgParaServidor',
-					{nickname : $('#nickname').val(), mensagem : $('#mensagem').val() }				
-				)		
+					{nickname : $('#nickname').val(),
+					 mensagem : $('#mensagem').val(),
+					 apelido_att_cliente : $('#apelido_att_cliente').val()
+					  }				
+				)
+				$('#apelido_att_cliente').val(1);	// alterando valor pra 1, impede de duplicar os usuários como participantes.
+				$('#mensagem').val(""); // limpa o campo de texto
 			});
 		
 			socket.on('msgParaCliente',(data)=>{ // escutando e esperando o emit() //não precisa ser o nome data, pode ser outro. 
 				let html ='';
-				html += '<div class="dialogo">';
+				html += '<div class="dialogo">';		// vai retornar a mensagem e o nome
 					html += '<h4>' + data.nickname + '</h4>';
 					html += '<p>' + data.mensagem + '</p>';
 					html += '</div>';
 					
 				$('#dialogos').append(html);
+				window.scrollTo(0, document.body.scrollHeight); // scrolla automaticamente para baixo
+			});	
+			
+			socket.on('ParticipanteClient',(data)=>{ // escutando e esperando o emit() //não precisa ser o nome data, pode ser outro. 
+				let html ='';
+				html += '<span class="participante">';		//retornar participantes
+					html +=  '<img src="images/ico_usuarioo.png">';
+					html +=  data.nickname;
+					html += '</span>';
+					
+				$('#pessoas').append(html);
 			});	
 		</script>		
 		
