@@ -1,0 +1,29 @@
+{
+  "name": "game_of_thrones_rpg",
+  "version": "1.0.0",
+  "description": "MMO RPG de Game of Thrones",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinbreaker/NodeJS.git"
+  },
+  "keywords": [
+    "got"
+  ],
+  "author": "Kevin Martin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevinbreaker/NodeJS/issues"
+  },
+  "homepage": "https://github.com/kevinbreaker/NodeJS#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "consign": "^0.1.4",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "express-validator": "^3.1.3"
+  }
+}
