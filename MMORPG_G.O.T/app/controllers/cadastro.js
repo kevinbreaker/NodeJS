@@ -18,6 +18,12 @@ module.exports.cadastrar = (aplicacao,req,res)=>{
 			res.render('cadastro',{validacao : erro,dadosForm: dadosForm});
 			return;
 		}
+		
+		let connection = aplicacao.config.dbConnection;	 // conexão com bd
+		
+		let UsuariosDAO = new aplicacao.app.models.UsuariosDAO(connection);	
+			
+		UsuariosDAO.inserirUsuario(dadosForm);
+				
 		res.send("ta tudo correto,relex")
-	
 }

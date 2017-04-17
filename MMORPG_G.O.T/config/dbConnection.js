@@ -7,7 +7,7 @@ let connMongoDB = ()=>{
 		'rpg_got',				// String do nome (nome do banco) 
 		new mongo.Server(		// objeto de conexão com o servidor, parametro baisco da conexao, espera 3 parametros
 			'localhost',  //String contendo o endereço do servidor do banco
-			'????',	//Porta de conexão do banco
+			'27018',	//Porta de conexão do banco (padrão:27017, porém estou usando 27018)
 			{}	//Objeto de opções do servidor (nao irei utilizar..então vai vazio)
 		),
 		{} // Objeto opcional de configuração						
