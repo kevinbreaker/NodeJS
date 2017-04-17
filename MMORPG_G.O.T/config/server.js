@@ -19,6 +19,7 @@ aplicacao.use(expressValidator()); // configura o middleware express-validator
 // Efetua o autoload das rotas, models e controllers para dentro do objeto aplicacao
 consign()
 	.include('app/routes')
+	.then('config/dbConnection.js')//Especificando o modulo pra nao entrar em loop e extensão pra não parecer com um diretorio
 	.then('app/models')
 	.then('app/controllers')
 	.into(aplicacao);
