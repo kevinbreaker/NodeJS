@@ -6,3 +6,12 @@ module.exports.game = (aplicacao,req,res)=>{
 		res.send("Usuário necessita se logar");	
 	}
 }
+
+module.exports.sair = (aplicacao, req ,res)=>{
+	
+	req.session.destroy((erro)=>{ //destroi a sessão 
+		res.render("index", {validacao: {} })	//Redireciona para index.
+	})
+
+
+}
