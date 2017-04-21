@@ -15,6 +15,12 @@ module.exports.autenticar = (aplicacao, req, res)=>{
 		res.render("index",{validacao : erros, dadosAutentic : dadosAutentic});
 		return;
 	}
-	res.send('Oi');
+	//### Criando variaveis para usar recursos da classe e banco para autenticar ##
+	let connection = aplicacao.config.dbConnection;
+	let UsuariosDAO = new aplicacao.app.models.UsuariosDAO(connection);
+	
+	UsuariosDAO.autenticar(dadosAutentic,req,res); // Passando o usuario e senha.
+	
+
 	
 }
