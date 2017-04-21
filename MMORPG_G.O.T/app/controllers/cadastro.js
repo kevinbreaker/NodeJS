@@ -20,10 +20,10 @@ module.exports.cadastrar = (aplicacao,req,res)=>{
 		}
 		
 		let connection = aplicacao.config.dbConnection;	 // conexão com bd
-		
 		let UsuariosDAO = new aplicacao.app.models.UsuariosDAO(connection);	
-			
-		UsuariosDAO.inserirUsuario(dadosForm);
+		let jogoDAO = new aplicacao.app.models.JogoDAO(connection);
 				
+		UsuariosDAO.inserirUsuario(dadosForm);
+		jogoDAO.gerarParametros(dadosForm.usuario);				
 		res.send("ta tudo correto,relex")
 }
