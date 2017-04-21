@@ -20,9 +20,9 @@ aplicacao.use(expressValidator()); // configura o middleware express-validator
 
 aplicacao.use(expressSession({  // configura o middleware express-session (espera 3 parametros Json)
 	
-		secret: 'kerrek', // segredo/chave string.. contendo um id para acessar o coockie de seção, para acessar a seção do lado do servidor
-		resave: false,  // se for TRUE a seção é regravada do lado do servidor (mesmo sem modificações)
-		saveUnitialized: false // Se for TRUE cria uma nova seção, quando a mesma é modificada.
+		secret: 'kerrek', // segredo/chave string.. contendo um id para acessar o coockie de sessão, para acessar a sessão do lado do servidor
+		resave: false,  // se for TRUE a sessão é regravada do lado do servidor (mesmo sem modificações)
+		saveUnitialized: false // Se for TRUE cria uma nova sessão, quando a mesma é modificada.
 })); 
 
 // Efetua o autoload das rotas, models e controllers para dentro do objeto aplicacao
