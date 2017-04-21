@@ -20,8 +20,8 @@ UsuariosDAO.prototype.autenticar = function(userAutentic, req,res){
 						
 						req.session.autorizado = true; // inicia variavel de sessão, e diz que é verdadeira(existe enquanto o navegador ta aberto(mesmo mudando de rota))
 						
-						req.session.usuario = result[0].usuario; // recupera usuario
-						req.session.casa = result[0].casa;		//recupera a casa do usuario
+						req.session.usuario = result[0].usuario; // recupera usuario (cookie)
+						req.session.casa = result[0].casa;		//recupera a casa do usuario (cookie)
 							
 					}		
 						
