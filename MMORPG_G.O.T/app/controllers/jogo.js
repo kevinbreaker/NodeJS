@@ -20,4 +20,14 @@ module.exports.sair = (aplicacao, req ,res)=>{
 	req.session.destroy((erro)=>{ //destroi a sessão 
 		res.render("index", {validacao: {} })	//Redireciona para index.
 	})
+
+}
+
+module.exports.suditos = (aplicacao,req,res)=>{
+	res.render("aldeoes",{validacao: {} })
+
+}
+
+module.exports.pergaminhos = (aplicacao,req,res)=>{
+	res.render("pergaminhos", {validacao: {} })
 }

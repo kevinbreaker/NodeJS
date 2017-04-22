@@ -6,4 +6,10 @@ module.exports = (aplicacao)=>{
 	aplicacao.get('/sair',(req,res)=>{
 		aplicacao.app.controllers.jogo.sair(aplicacao,req,res)
 	})
+	aplicacao.get('/suditos',(req,res)=>{
+		aplicacao.app.controllers.jogo.suditos(aplicacao,req,res)	
+	})
+	aplicacao.get('/pergaminhos',(req,res)=>{
+		aplicacao.app.controllers.jogo.pergaminhos(aplicacao,req,res)	
+	})
 }

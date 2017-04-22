@@ -20,6 +20,25 @@
 				$('#btn_sair').click(function(){	//Identifica caso haja click no botão sair
 					window.location.href = '/sair';	// força o redirecionamento da pagina/rota
 					
+					});
+				$('#btn_aldeoes').click(function(){ // ação de click nos aldeões
+					$.ajax({		// função ajax
+						url: '/suditos',		// redirecionando dos /aldeoes
+						method: "get",
+						success: function(dados){
+							$('#acoes').html(dados);
+						}
+					});
+					
+				});
+				$('#btn_pergaminhos').click(function(){ // ação de click nos pergaminhos 
+					$.ajax({		// função ajax
+						url: '/pergaminhos',	// redirecionando dos /pergaminhos
+						method: 'get',
+						success: function(dados){
+							$('#acoes').html(dados);
+						}
+					});
 				});
 				
 			});
@@ -73,7 +92,7 @@
 			<div class="row">
 				<div class="col-sm-3"></div>
 				<div class="col-sm-9">
-					<div class="acoes"></div>					
+					<div class="acoes" id="acoes">Senhor, Oque gostaria de fazer hoje ?</div>					
 				</div>
 			</div>
 			
@@ -84,12 +103,12 @@
 			
 				<div class="row">
 					<div class="col-sm-1">
-						<img src="images/outros/suditos.jpg" title="Aldeões" alt="Aldeões"/>
+						<img src="images/outros/suditos.jpg" title="Aldeões"  id="btn_aldeoes" alt="Aldeões"/>
 						<span><%= jogo.suditos %></span>
 					</div>
 					
 					<div class="col-sm-1">
-						<img src="images/outros/pergaminho.jpg" title="Pergaminhos" alt="Pergaminhos"/>
+						<img src="images/outros/pergaminho.jpg" title="Pergaminhos" id="btn_pergaminhos" alt="Pergaminhos"/>
 					</div>
 					
 					<div class="col-sm-8"></div>
