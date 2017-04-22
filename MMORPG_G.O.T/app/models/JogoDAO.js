@@ -23,6 +23,18 @@ gameDAO.prototype.gerarParametros = function(dados){
 	})
 }
 
+gameDAO.prototype.startGame = function(res, usuario, casa){
+	this._connection.open((erro,monGame)=>{
+		monGame.collection("jogo",(erro,colecao)=>{
+			colecao.find({ usuario: usuario }).toArray((erro,result)=>{
+				
+				console.log(result[0]);
+				res.render('jogo', { img_casa: casa, jogo: result[0] }); // Caso permitido(login com sucesso), inicia o jogo do usuário.
+				monGame.close();						
+			})		
+		})	
+	})
+}
 
 module.exports = ()=> {
 	return gameDAO;
