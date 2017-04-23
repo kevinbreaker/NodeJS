@@ -16,7 +16,7 @@ aplicacao.use(express.static('./app/public'));
 
 // configurar o middleware body-parser 
 aplicacao.use(bodyParser.urlencoded({extended: true}));
-
+aplicacao.use(bodyParser.json());
 // configurar o middleware express-validator 
 aplicacao.use(expressValidator());
 

@@ -7,13 +7,14 @@ let opcoes = {
 	method: 'post',
 	headers: {  // formas de "negociar"; formato pedido.
 		'Accept' : 'application/json', // irá receber um json (por parte do servidor)
-		'Content-type' : 'application/x-www-form-urlencoded'		
+		'Content-type' : 'application/json'		
 	}										// 'text/html' pra receber em html
 
 }
 //Content-type
 let html = 'nome=Kevin'; // x-www-form-urlencoded
-
+let json = {nome : 'kevin'};
+let string_json = JSON.stringify(json); // converte um json(obj literal) em string.
 
 	
 let buffer_corpo_response = [];	
@@ -35,5 +36,5 @@ let req = http.request(opcoes, (res)=>{ // get do http, não do framework expres
 	})
 })
 
-req.write(html); // anexa a informação/string, como sendo body do request
+req.write(string_json); // anexa a informação/string, como sendo body do request(aceita string nao obj literal.)
 req.end();// envio, disparando a requisição
