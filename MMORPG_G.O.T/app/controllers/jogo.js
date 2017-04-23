@@ -79,3 +79,13 @@ module.exports.sudi_acao = (aplicacao,req,res)=>{
 	jogoDAO.acao(dadosForm);
 	res.redirect("jogo?msg=B");
 }
+
+module.exports.revogar_acao = (aplicacao,req,res)=>{
+	let url_query = req.query;
+	
+	let connection = aplicacao.config.dbConnection;
+	let jogoDAO = new aplicacao.app.models.JogoDAO(connection);
+	
+	let _id = url_query.id_acao;
+	jogoDAO.revogarAcao(_id,res);
+}

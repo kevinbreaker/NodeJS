@@ -1,3 +1,5 @@
+let ObjectID = require('mongodb').ObjectId;
+
 function gameDAO (connection){
 	this._connection = connection();
 
@@ -88,6 +90,20 @@ gameDAO.prototype.getAcoes = function(usuario,res){
 		})	
 	})	
 }	
+
+gameDAO.prototype.revogarAcao = function(_id,res){
+	this._connection.open((erro,monAcao)=>{
+		monAcao.collection("acao",(erro,colecao)=>{
+			colecao.remove(
+				{_id: ObjectID(_id)},
+				function(erro,result){
+					res.redirect("jogo?msg=D"); 
+						monAcao.close();
+				}
+			);
+		})
+	})	
+}
 
 module.exports = ()=> {
 	return gameDAO;

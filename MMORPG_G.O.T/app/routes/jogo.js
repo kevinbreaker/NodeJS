@@ -16,4 +16,8 @@ module.exports = (aplicacao)=>{
 	aplicacao.post('/ordenar_acao_suditos',(req,res)=>{
 		aplicacao.app.controllers.jogo.sudi_acao(aplicacao,req,res)	
 	})
+	
+	aplicacao.get('/revogar_acao',(req,res)=>{
+		aplicacao.app.controllers.jogo.revogar_acao(aplicacao,req,res)	
+	})
 }
