@@ -60,7 +60,11 @@ gameDAO.prototype.acao = function(acao){
 gameDAO.prototype.getAcoes = function(usuario,res){
 	this._connection.open((erro,monAcao)=>{
 		monAcao.collection("acao",(erro,colecao)=>{
-			colecao.find({usuario: usuario }).toArray((erro,result)=>{
+			
+			let date = new Date();
+			let momento_atual = date.getTime();
+			
+			colecao.find({usuario: usuario, acao_temina_em: {$gt: momento_atual} }).toArray((erro,result)=>{
 			
 			res.render("pergaminhos", {acoes : result })
 			monAcao.close();
