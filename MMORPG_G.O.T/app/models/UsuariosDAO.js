@@ -1,3 +1,5 @@
+let crypto = require('crypto'); // Importando o módulo do crypto (Para cryptografar em md5 as senhas dos usuários.)
+
 function UsuariosDAO(connection){
 	this._connection = connection();
 }	
@@ -5,6 +7,10 @@ function UsuariosDAO(connection){
 UsuariosDAO.prototype.inserirUsuario =function(usuario){
 	this._connection.open(function(erro, mongoClient){	//abrir a conexão com servidor e conectar com o banco..
 		mongoClient.collection("usuarios", function(erro, colecao){	//executar a collection.. e executa uma função pra manipulação
+
+			let senha_criptografada =	crypto.createHash("md5").update(usuario.senha).digest("hex"); //digest "digere" a informaçao, transformando pra md5
+			usuario.senha = senha_criptografada;
+			
 			colecao.insert(usuario);	
 			mongoClient.close();// fechar conexão, para nao ficar varias abertas
 		});
@@ -14,6 +20,10 @@ UsuariosDAO.prototype.inserirUsuario =function(usuario){
 UsuariosDAO.prototype.autenticar = function(userAutentic, req,res){
 	this._connection.open((erro, mongoAutentic)=>{ // Abre a conexão com o banco
 		mongoAutentic.collection("usuarios",(erro,colecao)=>{	//entra na collection "usuarios" e faz uma ação callback
+		
+			let senha_criptografada =	crypto.createHash("md5").update(usuario.senha).digest("hex"); //digest "digere" a informaçao, transformando pra md5
+			usuario.senha = senha_criptografada;		
+				
 			colecao.find({ usuario: {$eq: userAutentic.usuario}, senha: {$eq: userAutentic.senha} }).toArray((erro,result)=>{	//encontrando no banco os registros de tal usuario.
 																											// OBS: se pode omitir o $eq, por o Json ter a msm chave, sendo chave e valor.
 					if (result[0] != undefined) { //Se o resultado for diferente de indefinido (isto é, se achar no banco o registro).
