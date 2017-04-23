@@ -52,8 +52,24 @@ gameDAO.prototype.acao = function(acao){
 			acao.acao_temina_em = date.getTime()+ tempo;
 			colecao.insert(acao);
 			
-			monacao.close();
+			
 		})	
+		monacao.collection("jogo",(erro,colecao)=>{
+			
+			let moedas = null;
+			switch(parseInt(acao.acao)) {
+				case 1: moedas = -2 * acao.quantidade; break;
+				case 2: moedas = -3 * acao.quantidade; break;
+				case 3: moedas = -1 * acao.quantidade; break;
+				case 5: moedas = -1 * acao.quantidade; break;			
+			}
+			
+			colecao.update(
+				{usuario : acao.usuario},
+				{$inc: {moeda: moedas}} // inc = decrementa (moeda - moedas)
+				);
+				monacao.close();
+			});		
 	})
 }
 
