@@ -4,16 +4,22 @@ let opcoes = {
 	hostname: 'localhost',
 	port: 8080,
 	path: '/',
-	headers: {  // 
-		'Accept' : 'application/json' // irá receber um json (por parte do servidor)
+	method: 'post',
+	headers: {  // formas de "negociar"; formato pedido.
+		'Accept' : 'application/json', // irá receber um json (por parte do servidor)
+		'Content-type' : 'application/x-www-form-urlencoded'		
 	}										// 'text/html' pra receber em html
 
 }
+//Content-type
+let html = 'nome=Kevin'; // x-www-form-urlencoded
+
+
 	
 let buffer_corpo_response = [];	
 	
 // espera 2 parametros, 1º uma string ou json, 2º uma função de callback que recebe response
-http.get(opcoes, (res)=>{ // get do http, não do framework express!!!
+let req = http.request(opcoes, (res)=>{ // get do http, não do framework express!!!
 
 	// aparti do on, é possivel identificar alguns estados da req.
 	res.on('data',(pedaco)=>{ // data existe quando req esta em curso, e recebe pedços de info web
@@ -28,3 +34,6 @@ http.get(opcoes, (res)=>{ // get do http, não do framework express!!!
 		
 	})
 })
+
+req.write(html); // anexa a informação/string, como sendo body do request
+req.end();// envio, disparando a requisição

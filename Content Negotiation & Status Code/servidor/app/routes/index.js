@@ -13,4 +13,9 @@ module.exports = (aplicacao)=>{
 			}
 		});		
 	});
+	
+	aplicacao.post('/',(req,res)=>{
+		let dados = req.body;
+		res.send(dados);
+	})
 }
