@@ -12,4 +12,8 @@ module.exports = (aplicacao)=>{
 	aplicacao.get('/pergaminhos',(req,res)=>{
 		aplicacao.app.controllers.jogo.pergaminhos(aplicacao,req,res)	
 	})
+
+	aplicacao.post('/ordenar_acao_suditos',(req,res)=>{
+		aplicacao.app.controllers.jogo.sudi_acao(aplicacao,req,res)	
+	})
 }

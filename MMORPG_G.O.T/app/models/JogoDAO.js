@@ -23,18 +23,51 @@ gameDAO.prototype.gerarParametros = function(dados){
 	})
 }
 
-gameDAO.prototype.startGame = function(res, usuario, casa){
+gameDAO.prototype.startGame = function(res, usuario, casa,msg){
 	this._connection.open((erro,monGame)=>{
 		monGame.collection("jogo",(erro,colecao)=>{
 			colecao.find({ usuario: usuario }).toArray((erro,result)=>{
 				
-				console.log(result[0]);
-				res.render('jogo', { img_casa: casa, jogo: result[0] }); // Caso permitido(login com sucesso), inicia o jogo do usuário.
+				res.render('jogo', { img_casa: casa, jogo: result[0],msg: msg }); // Caso permitido(login com sucesso), inicia o jogo do usuário.
 				monGame.close();						
 			})		
 		})	
 	})
 }
+
+gameDAO.prototype.acao = function(acao){
+	this._connection.open((erro,monacao)=>{
+		monacao.collection("acao",(erro,colecao)=>{
+			
+			let date = new Date();
+			let tempo = null;
+			
+			switch(parseInt(acao.acao)) {
+				case 1: tempo = 1 * 60 * 60000; break;
+				case 2: tempo = 2 * 60 * 60000; break;
+				case 3: tempo = 5 * 60 * 60000; break;
+				case 5: tempo = 5 * 60 * 60000; break;			
+			}
+						
+			acao.acao_temina_em = date.getTime()+ tempo;
+			colecao.insert(acao);
+			
+			monacao.close();
+		})	
+	})
+}
+
+gameDAO.prototype.getAcoes = function(usuario,res){
+	this._connection.open((erro,monAcao)=>{
+		monAcao.collection("acao",(erro,colecao)=>{
+			colecao.find({usuario: usuario }).toArray((erro,result)=>{
+			
+			res.render("pergaminhos", {acoes : result })
+			monAcao.close();
+			})
+		})	
+	})	
+}	
 
 module.exports = ()=> {
 	return gameDAO;

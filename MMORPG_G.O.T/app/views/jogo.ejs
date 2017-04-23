@@ -22,6 +22,7 @@
 					
 					});
 				$('#btn_aldeoes').click(function(){ // ação de click nos aldeões
+					$('#msg').hide();					
 					$.ajax({		// função ajax
 						url: '/suditos',		// redirecionando dos /aldeoes
 						method: "get",
@@ -32,6 +33,7 @@
 					
 				});
 				$('#btn_pergaminhos').click(function(){ // ação de click nos pergaminhos 
+					$('#msg').hide();					
 					$.ajax({		// função ajax
 						url: '/pergaminhos',	// redirecionando dos /pergaminhos
 						method: 'get',
@@ -58,7 +60,17 @@
 		</nav>
 
 	    <div class="container">
+	    	<% if(msg == "A"){%>
+	    		<div class="alert alert-danger" id="msg">
+					<strong>Operação inválida. Porfavor, verifique se todos os campos estão preenchidos.</strong>   		
+	    		</div>
+	    	<% } %>
 	    	
+	    		<% if(msg == "B"){%>
+	    		<div class="alert alert-info" id="msg">
+					<strong>Ação realizada com sucesso!!</strong>   		
+	    		</div>
+	    	<% } %>
 			<div class="row">
 	    		<div class="col-sm-3 casa">
 					<img src="images/casa_<%=img_casa %>.jpg" />
