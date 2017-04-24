@@ -75,3 +75,40 @@ aplicacao.get('/api/:id',(req,res)=>{
 	});
 })
 
+// PUT by ID(update)
+aplicacao.put('/api/:id',(req,res)=>{
+	db.open(function(erro,mongoClient){
+		mongoClient.collection('postagens',(erro,colecao)=>{
+			colecao.update(
+				{_id: objectid(req.params.id)}, // query
+				{ $set: {titulo: req.body.titulo}},
+				{},
+				(erro,result)=>{
+					if (erro) {
+						res.json(erro);
+					}else{
+						res.json(result);
+					}
+					mongoClient.close();
+				}
+			);	
+		})
+	});		
+})	
+
+// DELETE by ID(remove)
+aplicacao.delete('/api/:id',(req,res)=>{
+	db.open(function(erro,monCli){
+		monCli.collection('postagens',(erro,colecao)=>{
+			colecao.remove({_id : objectid(req.params.id)},(erro,result)=>{
+				if(erro){
+					res.json(erro);
+				}else{
+					res.json(result);				
+				}
+				monCli.close();
+			})
+		})
+	});	
+})
+
