@@ -1,6 +1,7 @@
 // #### IMPORTANTO MÓDULOS
 let express = require('express'),
 	bodyParser = require('body-parser'),
+	objectid = require('mongodb').ObjectId,
 	mongodb = require('mongodb');
 
 let aplicacao = express();
@@ -58,3 +59,19 @@ aplicacao.get('/api',(req,res)=>{
 		})	
 	});
 })
+// GET by ID(read)
+aplicacao.get('/api/:id',(req,res)=>{
+	db.open(function(erro,mongoClient){
+		mongoClient.collection('postagens',(erro,colecao)=>{
+			colecao.find(objectid(req.params.id)).toArray((erro,result)=>{
+				if(erro){
+					res.json(erro);
+				}else{
+					res.json(result);				
+				}
+				mongoClient.close();
+			})		
+		})	
+	});
+})
+
