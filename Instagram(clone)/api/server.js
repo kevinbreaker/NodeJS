@@ -35,10 +35,26 @@ aplicacao.post('/api',(req,res)=>{
 				if(erro){
 					res.json({'status': 'Erro!'});
 				}else{
-					res.json('status':'Inserido no banco com sucesso');
+					res.json({'status':'Inserido no banco com sucesso'});
 				}
 				mongoClient.close();	
 			});		
 		})
+	});
+})
+
+// GET (read)
+aplicacao.get('/api',(req,res)=>{
+	db.open(function(erro,mongoClient){
+		mongoClient.collection('postagens',(erro,colecao)=>{
+			colecao.find().toArray((erro,result)=>{
+				if(erro){
+					res.json(erro);
+				}else{
+					res.json(result);				
+				}
+				mongoClient.close();
+			})		
+		})	
 	});
 })
