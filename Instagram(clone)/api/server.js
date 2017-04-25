@@ -65,7 +65,7 @@ aplicacao.get('/api/:id',(req,res)=>{
 		mongoClient.collection('postagens',(erro,colecao)=>{
 			colecao.find(objectid(req.params.id)).toArray((erro,result)=>{
 				if(erro){
-					res.json(erro);
+					res.status(404).json(erro);
 				}else{
 					res.json(result);				
 				}
