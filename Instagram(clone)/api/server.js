@@ -1,6 +1,9 @@
 // #### IMPORTANTO MÓDULOS
 let express = require('express'),
 	bodyParser = require('body-parser'),
+	multiparty = require('connect-multiparty'),
+	fileSystem = require('fs'), // capacidade manipular arquivo dentro da aplicação
+	mv = require('mv'), // Por causa das permissões do linux, precisei usar este, mas igual o de cima.
 	objectid = require('mongodb').ObjectId,
 	mongodb = require('mongodb');
 
@@ -9,6 +12,7 @@ let aplicacao = express();
 //Configuração body-parser - middlewares
 aplicacao.use(bodyParser.urlencoded({extended : true}));
 aplicacao.use(bodyParser.json());
+aplicacao.use(multiparty());
 
 // Escutando na porta 8080 (pq sim!)
 let port = 8080;
@@ -29,8 +33,28 @@ aplicacao.get('/',(req,res)=>{
 
 // POST  (create)
 aplicacao.post('/api',(req,res)=>{
-	let dados = req.body;
-	db.open(function(erro,mongoClient){
+	
+	let date = new Date();
+	time_stamp =  date.getTime();
+	
+	//Permitindo que o cliente via codigo possa usar o post
+	res.setHeader("Access-Control-Allow-Origin","*") ;// 1º parametro- propriedade do hear que quer setar, 2º param lugar 
+																// pra permitir apenas certo lugar ex: http://localgost:8081
+	 let url_imagem = req.files.arquivo.originalFilename + '_' + time_stamp;	 // nome da imagem	 
+	 let pathOrigem = req.files.arquivo.path;
+	 let pathDestino = './uploads/' + url_imagem; // destino mais o nome original.
+	 
+	 mv(pathOrigem,pathDestino,(erro)=>{ 
+	 	    if (erro){
+	 	    	res.status(500).json({error : erro});	
+	 	     }
+				console.log('movido!!');
+			});
+	 	let dados = {
+			url_imagem: url_imagem,
+			titulo: req.body.titulo	 	
+	 	}
+	  db.open(function(erro,mongoClient){
 		mongoClient.collection('postagens',(erro,colecao)=>{
 			colecao.insert(dados,(erro,result)=>{
 				if(erro){
@@ -41,7 +65,7 @@ aplicacao.post('/api',(req,res)=>{
 				mongoClient.close();	
 			});		
 		})
-	});
+	}); 
 })
 
 // GET (read)
