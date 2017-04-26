@@ -14,6 +14,15 @@ aplicacao.use(bodyParser.urlencoded({extended : true}));
 aplicacao.use(bodyParser.json());
 aplicacao.use(multiparty());
 
+aplicacao.use(function(req,res,next){
+
+	res.setHeader("Access-Control-Allow-Origin","*"); 
+	res.setHeader("Access-Control-Allow-Methods","GET,PUT,POST,DELETE");
+	res.setHeader("Access-Control-Allow-Headers","content-type");
+	res.setHeader("Access-Control-Allow-Credentials",true);
+	
+	next();
+});
 // Escutando na porta 8080 (pq sim!)
 let port = 8080;
 aplicacao.listen(port);
@@ -38,7 +47,7 @@ aplicacao.post('/api',(req,res)=>{
 	time_stamp =  date.getTime();
 	
 	//Permitindo que o cliente via codigo possa usar o post
-	res.setHeader("Access-Control-Allow-Origin","*");// 1º parametro- propriedade do hear que quer setar, 2º param lugar 
+	//res.setHeader("Access-Control-Allow-Origin","*");// 1º parametro- propriedade do hear que quer setar, 2º param lugar 
 																// pra permitir apenas certo lugar ex: http://localgost:8081
 	 let url_imagem =  time_stamp + '_' + req.files.arquivo.originalFilename;	 // nome da imagem	 
 	 let pathOrigem = req.files.arquivo.path;
@@ -70,8 +79,6 @@ aplicacao.post('/api',(req,res)=>{
 
 // GET (read)
 aplicacao.get('/api',(req,res)=>{
-	
-	res.setHeader("Access-Control-Allow-Origin","*");
 	
 	db.open(function(erro,mongoClient){
 		mongoClient.collection('postagens',(erro,colecao)=>{
@@ -122,7 +129,13 @@ aplicacao.put('/api/:id',(req,res)=>{
 		mongoClient.collection('postagens',(erro,colecao)=>{
 			colecao.update(
 				{_id: objectid(req.params.id)}, // query
-				{ $set: {titulo: req.body.titulo}},
+				{ $push: {
+							comentarios: {
+								id_comentario : new objectid(),
+								comentario: req.body.comentario								
+								}
+							}
+				},
 				{},
 				(erro,result)=>{
 					if (erro) {
@@ -141,7 +154,15 @@ aplicacao.put('/api/:id',(req,res)=>{
 aplicacao.delete('/api/:id',(req,res)=>{
 	db.open(function(erro,monCli){
 		monCli.collection('postagens',(erro,colecao)=>{
-			colecao.remove({_id : objectid(req.params.id)},(erro,result)=>{
+			colecao.update(
+			{},
+			{$pull: {
+						comentarios: {id_comentario : objectid(req.params.id)}			
+					  }
+			},
+			{multi:true},
+			
+			(erro,result)=>{
 				if(erro){
 					res.json(erro);
 				}else{
