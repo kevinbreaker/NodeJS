@@ -38,9 +38,9 @@ aplicacao.post('/api',(req,res)=>{
 	time_stamp =  date.getTime();
 	
 	//Permitindo que o cliente via codigo possa usar o post
-	res.setHeader("Access-Control-Allow-Origin","*") ;// 1º parametro- propriedade do hear que quer setar, 2º param lugar 
+	res.setHeader("Access-Control-Allow-Origin","*");// 1º parametro- propriedade do hear que quer setar, 2º param lugar 
 																// pra permitir apenas certo lugar ex: http://localgost:8081
-	 let url_imagem = req.files.arquivo.originalFilename + '_' + time_stamp;	 // nome da imagem	 
+	 let url_imagem =  time_stamp + '_' + req.files.arquivo.originalFilename;	 // nome da imagem	 
 	 let pathOrigem = req.files.arquivo.path;
 	 let pathDestino = './uploads/' + url_imagem; // destino mais o nome original.
 	 
@@ -70,6 +70,9 @@ aplicacao.post('/api',(req,res)=>{
 
 // GET (read)
 aplicacao.get('/api',(req,res)=>{
+	
+	res.setHeader("Access-Control-Allow-Origin","*");
+	
 	db.open(function(erro,mongoClient){
 		mongoClient.collection('postagens',(erro,colecao)=>{
 			colecao.find().toArray((erro,result)=>{
@@ -97,6 +100,20 @@ aplicacao.get('/api/:id',(req,res)=>{
 			})		
 		})	
 	});
+})
+
+aplicacao.get('/imagens/:imagem',(req,res)=>{
+
+	let img = req.params.imagem;
+	
+	fileSystem.readFile('./uploads/'+img,(erro,conteudo)=>{
+		if(erro){
+			res.status(400).json(erro);
+			return;		
+		}
+			res.writeHead(200, {'content-type':'image/jpg'});			
+			res.end(conteudo); // end = pega uma determinada informação e escreve dentro do response	})
+	})
 })
 
 // PUT by ID(update)
