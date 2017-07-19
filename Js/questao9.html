@@ -1,0 +1,41 @@
+<html>
+<body>
+<ul>
+    <li class="convidado">
+        Nome <span class="nome">Douglas</span>,
+        idade <span class="idade">23</span>
+    </li>
+    <li class="convidado">
+        Nome <span class="nome">Daniel</span>,
+        idade <span class="idade">42</span>
+    </li>
+    <li class="convidado">
+        Nome <span class="nome">Marcos</span>,
+        idade <span class="idade">27</span>
+    </li>
+    <li class="convidado">
+        Nome <span class="nome">Flavio</span>,
+        idade <span class="idade">18</span>
+    </li>
+
+    Total das idades: <span class="total"></span>
+</ul>
+</body>
+</html>
+<script>
+function listaConvidados (){
+  let objetos = document.querySelectorAll(".convidado");
+  console.log(objetos);
+    let convidados = [];
+
+   for(let i=0; i < objetos.length; i++){
+      let convidado = {
+        nome: objetos[i].document.querySelector('.nome').textContent;
+        idade: parseToint(objetos[i].document.querySelector('.idade').textContent);
+      }
+      convidados.push(convidado);
+    }
+    return convidados;
+  }
+  function
+</script>
