@@ -7,7 +7,13 @@ const connection = mysqlServer.createConnection({
   database: 'restful_node'
 });
 
-const categoryModule = require('./categories')({ connection });
+const errorHandler = (error, msg, rejectFunction) => {
+  console.log(error);
+  rejectFunction({error: msg});
+  return false;
+}
+
+const categoryModule = require('./categories')({ connection, errorHandler });
 module.exports = {
   categories: () => categoryModule
 };
