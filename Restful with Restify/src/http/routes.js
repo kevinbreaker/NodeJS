@@ -16,38 +16,35 @@ const routes = (server) => {
       res.send(await db.categories().all());
     } catch (error) {
       res.send(error);
-      next();
     }
+    next();
   });
   server.post('category', async (req, res, next) => {
     const { name } = req.params;
     try {
       res.send(await db.categories().save(name));
-      next();
     } catch (error) {
       res.send(error);
-      next();
     }
+    next();
   });
   server.put('category', async (req, res, next) => {
     const { id, name } = req.params;
     try {
       res.send(await db.categories().update(id, name));
-      next();
     } catch (error) {
       res.send(error);
-      next();
     }
+    next();
   });
   server.del('category', async (req, res, next) => {
     const { id } = req.params;
     try {
       res.send(await db.categories().del(id));
-      next();
     } catch (error) {
       res.send(error);
-      next();
     }
+    next();
   });
 }
 module.exports = routes;

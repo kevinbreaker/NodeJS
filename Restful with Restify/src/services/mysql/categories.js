@@ -28,11 +28,12 @@ const categories = (deps) => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = deps;
         connection.query('UPDATE categories SET name = ? WHERE id = ?', [name, id], (error, results) => {
-          if (error) {
+          if (error || !results.affectedRows) {
             errorHandler(error, `Failed to update category ${name}, try again or contact the developer (kevinbreaker2604@gmail.com)`, reject);
             return false;
           }
-          resolve({ category: { name, id: id } });
+          console.log(results);
+          resolve({ category: { name, id }, affectedRows: results.affectedRows });
         });
       });
     },
@@ -40,7 +41,7 @@ const categories = (deps) => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = deps;
         connection.query('DELETE FROM categories WHERE id = ?', [id], (error, results) => {
-          if (error) {
+          if (error || !results.affectedRows) {
             errorHandler(error, `Failed to delete this category, try again or contact the developer (kevinbreaker2604@gmail.com)`, reject);
             return false;
           }
