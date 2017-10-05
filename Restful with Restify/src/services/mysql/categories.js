@@ -45,7 +45,7 @@ const categories = (deps) => {
             errorHandler(error, `Failed to delete this category, try again or contact the developer (kevinbreaker2604@gmail.com)`, reject);
             return false;
           }
-          resolve({message: 'The category has been deleted successfully!'});
+          resolve({message: 'The category has been deleted successfully!', affectedRows: results.affectedRows});
         });
       });
     }
