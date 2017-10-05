@@ -24,8 +24,30 @@ const categories = (deps) => {
         });
       });
     },
-    update: (id, name) => { },
-    del: (id) => { }
+    update: (id, name) => {
+      return new Promise((resolve, reject) => {
+        const { connection, errorHandler } = deps;
+        connection.query('UPDATE categories SET name = ? WHERE id = ?', [name, id], (error, results) => {
+          if (error) {
+            errorHandler(error, `Failed to update category ${name}, try again or contact the developer (kevinbreaker2604@gmail.com)`, reject);
+            return false;
+          }
+          resolve({ category: { name, id: id } });
+        });
+      });
+    },
+    del: (id) => {
+      return new Promise((resolve, reject) => {
+        const { connection, errorHandler } = deps;
+        connection.query('DELETE FROM categories WHERE id = ?', [id], (error, results) => {
+          if (error) {
+            errorHandler(error, `Failed to delete this category, try again or contact the developer (kevinbreaker2604@gmail.com)`, reject);
+            return false;
+          }
+          resolve({message: 'The category has been deleted successfully!'});
+        });
+      });
+    }
   }
 }
 module.exports = categories;
