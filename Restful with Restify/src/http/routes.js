@@ -1,13 +1,13 @@
 const db = require('../services/mysql');
 
-// db.categories().all();
-// db.categories().save(name);
-// db.categories().update(id, name);
-// db.categories().del(id);
-
 const routes = (server) => {
-  server.get('/', (req, res, next) => {
-    res.send('It works!');
+  server.post('autenticate', async (req, res, next) => {
+    try {
+      const { email, password } = req.params;
+      res.send(await db.auth().autenticate(email, password));
+    } catch (error) {
+      res.send(error);
+    }
     next();
   });
 
