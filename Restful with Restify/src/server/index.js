@@ -1,5 +1,4 @@
 const restify = require('restify');
-require('console.table');
 const server = restify.createServer();
 const routes = require('../http/routes');
 const cors = require('./cors');

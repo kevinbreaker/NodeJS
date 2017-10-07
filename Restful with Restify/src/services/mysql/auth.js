@@ -16,8 +16,6 @@ const auth = (deps) => {
           const { email, id } = results[0];
           // information sent for token,  verification word, time expire ( optional )
           const token = jwt.sign({ email, id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
-          console.log(token);
-          console.log(results[0]);
           resolve({ token });
         });
       });

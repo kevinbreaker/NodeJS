@@ -32,7 +32,6 @@ const categories = (deps) => {
             errorHandler(error, `Failed to update category ${name}, try again or contact the developer (kevinbreaker2604@gmail.com)`, reject);
             return false;
           }
-          console.log(results);
           resolve({ category: { name, id }, affectedRows: results.affectedRows });
         });
       });

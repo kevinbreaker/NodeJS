@@ -8,14 +8,13 @@ const jwtMiddleware = (deps) => {
         res.send(403, { error: "Token wasn't received" });
         return false;
       }
-      await jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
-        if (error) {
-          res.send(403, { error: "Token wasn't received" });
-        } else {
-          req.decoded = decoded;
-          console.table(decoded);
-        }
-      });
+
+      try {
+        req.decoded = jwt.verify(token, process.env.JWT_SECRET);
+      } catch (err) {
+        res.send(403, { error: "Token wasn't received" })
+        return false;
+      }
     }
     next();
   }
