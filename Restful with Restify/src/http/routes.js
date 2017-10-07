@@ -1,10 +1,10 @@
 const db = require('../services/mysql');
 
 const routes = (server) => {
-  server.post('autenticate', async (req, res, next) => {
+  server.post('authentication', async (req, res, next) => {
     try {
       const { email, password } = req.params;
-      res.send(await db.auth().autenticate(email, password));
+      res.send(await db.auth().authenticate(email, password));
     } catch (error) {
       res.send(error);
     }

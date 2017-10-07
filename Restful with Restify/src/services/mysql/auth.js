@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const auth = (deps) => {
   return {
-    autenticate: (email, password) => {
+    authenticate: (email, password) => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = deps;
         const queryString = 'SELECT id, email FROM users WHERE email = ? AND password = ?';

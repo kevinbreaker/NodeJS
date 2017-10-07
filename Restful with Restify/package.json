@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "ava": "^0.22.0",
+    "console.table": "^0.9.1",
     "dotenv": "^4.0.0",
     "eslint": "^4.7.2",
     "eslint-config-standard": "^10.2.1",
